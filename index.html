@@ -1,0 +1,111 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Lexend&family=Source+Code+Pro&display=swap');
+    body {
+        font-family: "Verdana";
+        background-color: #444444;
+        display: flex;
+        align-items: center;
+    }
+
+    #main {
+        text-align: center;
+        margin: auto;
+        color: white;
+        border: 4px solid white;
+        padding: 50px;
+        border-radius: 50px;
+        width: 600px;
+    }
+    
+    input {
+        font-family: "Verdana";
+        background-color: transparent;
+        border: 1px solid white;
+        border-radius: 5px;
+        color: white;
+        padding: 15px 30px;
+        font-size: 20px;
+        height: 50px;
+        margin: 5px;
+        
+    }
+    
+    h1 {
+        font-family: "Lexend";
+        font-size: 40px;
+    }
+
+    button {
+        background-color: transparent;
+        border: 2px solid white;
+        color: white;
+        font-family: "Verdana";
+        padding: 7px 15px;
+        font-size: 15px;
+        border-radius: 10px;
+        cursor: pointer;
+        height: 50px;
+        
+    }
+
+    button:disabled {
+        color: gray;
+        border: 2px solid gray;
+    }
+
+    input:disabled {
+        border: 1px solid gray;
+        color: gray;
+    }
+</style>
+
+
+<body>
+    <div id="main">
+        <h1>Tunnel</h1>
+        <p>A privacy tool that launches a url into an about:blank tab, which does not show up on search histories.</p>
+        <input id="urlInput" type="text" placeholder="Enter URL"/>
+        <button id="confirm">Confirm</button>
+        <br> <br>
+        <button id="launch" disabled>Launch</button>
+    </div>
+
+    <script>
+
+        document.getElementById("confirm").addEventListener("click", function() {
+            const url = document.getElementById("urlInput").value;
+
+            if (url.startsWith("https://")) {
+                alert("Confirmed!");
+                document.getElementById("urlInput").disabled = true;
+                document.getElementById("launch").removeAttribute("disabled");
+                document.getElementById("confirm").innerHTML = "Change URL";
+            } else {
+                alert("Unable to confirm URL. Please make sure it starts with 'https://'!");
+            }
+
+        });
+
+        document.getElementById("launch").addEventListener("click", function() {
+            const url = document.getElementById("urlInput").value;
+            blank(url);
+            // window.parent.window.location.replace('https://classroom.google.com/0/h');
+
+
+        });
+
+        function blank(url) {
+            const tab = window.open('about:blank', '_blank'); 
+            const iframe = tab.document.createElement('iframe'); 
+            const stl = iframe.style; 
+            stl.border = stl.outline = 'none'; 
+            stl.width = '100vw'; 
+            stl.height = '100vh'; 
+            stl.position = 'fixed'; 
+            stl.left = stl.right = stl.top = stl.bottom = '0'; 
+            iframe.src = url; 
+            tab.document.body.appendChild(iframe); 
+        }
+
+    </script>
+</body>
