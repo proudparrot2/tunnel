@@ -66,7 +66,7 @@
         <p>A privacy tool that launches a url into an about:blank tab, which does not show up on search histories.</p>
         <input id="urlInput" type="text" placeholder="Enter URL"/>
         <button id="confirm">Confirm</button>
-        <br> <br>
+        <button id="changeUrl" style="display: none;">Change</button>
         <button id="launch" disabled>Launch</button>
     </div>
 
@@ -76,12 +76,12 @@
             const url = document.getElementById("urlInput").value;
 
             if (url.startsWith("https://")) {
-                alert("Confirmed!");
                 document.getElementById("urlInput").disabled = true;
                 document.getElementById("launch").removeAttribute("disabled");
-                document.getElementById("confirm").innerHTML = "Change URL";
+                document.getElementById("changeUrl").style.removeProperty("display");
+                document.getElementById("confirm").style.display = "none";
             } else {
-                alert("Unable to confirm URL. Please make sure it starts with 'https://'!");
+                alert("Unable to confirm URL. Please make sure it starts with 'https://'.");
             }
 
         });
@@ -92,6 +92,14 @@
             // window.parent.window.location.replace('https://classroom.google.com/0/h');
 
 
+        });
+        
+        document.getElementById("changeUrl").addEventListener("click", function () {
+            
+            document.getElementById("urlInput").removeAttribute("disabled");
+            document.getElementById("launch").disabled = true;
+            document.getElementById("changeUrl").style.display = "none";
+            document.getElementById("confirm").style.removeProperty("display");
         });
 
         function blank(url) {
