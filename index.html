@@ -1,3 +1,5 @@
+<script src="https://kit.fontawesome.com/e897e5d5dc.js" crossorigin="anonymous"></script>
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Lexend&family=Source+Code+Pro&display=swap');
     body {
@@ -20,7 +22,7 @@
     input {
         font-family: "Verdana";
         background-color: transparent;
-        border: 1px solid white;
+        border: 3px solid white;
         border-radius: 5px;
         color: white;
         padding: 15px 30px;
@@ -37,7 +39,7 @@
 
     button {
         background-color: transparent;
-        border: 2px solid white;
+        border: 3px solid white;
         color: white;
         font-family: "Verdana";
         padding: 7px 15px;
@@ -47,14 +49,20 @@
         height: 50px;
         
     }
+    
+    #removeHistory {
+        border: 3px solid #FF4E4E;
+        color: #FF4E4E;
+        margin-top: 5px;
+    }
 
     button:disabled {
         color: gray;
-        border: 2px solid gray;
+        border: 3px solid gray;
     }
 
     input:disabled {
-        border: 1px solid gray;
+        border: 3px solid gray;
         color: gray;
     }
 </style>
@@ -65,9 +73,10 @@
         <h1>Tunnel</h1>
         <p>A privacy tool that launches a url into an about:blank tab, which does not show up on search histories.</p>
         <input id="urlInput" type="text" placeholder="Enter URL"/>
-        <button id="confirm">Confirm</button>
-        <button id="changeUrl" style="display: none;">Change</button>
-        <button id="launch" disabled>Launch</button>
+        <button id="confirm"><i class="fa-solid fa-check"></i> Confirm</button>
+        <button id="changeUrl" style="display: none;"><i class="fa-solid fa-pen"></i> Change</button>
+        <button id="launch" disabled><i class="fa-solid fa-rocket"></i> Launch</button>
+        <br> <button id="removeHistory"><i class="fa-solid fa-trash"></i> Remove from history</button>
     </div>
 
     <script>
@@ -81,7 +90,7 @@
                 document.getElementById("changeUrl").style.removeProperty("display");
                 document.getElementById("confirm").style.display = "none";
             } else {
-                alert("Unable to confirm URL. Please make sure it starts with 'https://'.");
+                alert("Unable to confirm URL. Please make sure it starts with https://")
             }
 
         });
@@ -100,6 +109,10 @@
             document.getElementById("launch").disabled = true;
             document.getElementById("changeUrl").style.display = "none";
             document.getElementById("confirm").style.removeProperty("display");
+        });
+        
+        document.getElementById("removeHistory").addEventListener("click", function () {
+            window.parent.window.location.replace('https://classroom.google.com/0/h');
         });
 
         function blank(url) {
