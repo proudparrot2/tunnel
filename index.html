@@ -7,7 +7,7 @@
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Lexend&family=Source+Code+Pro&display=swap');
     body {
         font-family: "Verdana";
-        background-color: #444444;
+        background-color: black;
         display: flex;
         align-items: center;
     }
@@ -18,7 +18,7 @@
         color: white;
         border: 4px solid white;
         padding: 50px;
-        border-radius: 50px;
+        border-radius: 15px;
         width: 600px;
     }
     
@@ -74,16 +74,26 @@
 <body>
     <div id="main">
         <h1>Tunnel</h1>
-        <p>A privacy tool that launches a url into an about:blank tab, which does not show up on search histories.</p>
-        <input id="urlInput" type="text" placeholder="Enter URL"/>
-        <button id="confirm"><i class="fa-solid fa-check"></i> Confirm</button>
-        <button id="changeUrl" style="display: none;"><i class="fa-solid fa-pen"></i> Change</button>
-        <button id="launch" disabled><i class="fa-solid fa-rocket"></i> Launch</button>
+        <p>A privacy tool for launching tabs in about:blank, or cloaking tabs to look like a different one.</p>
+        <div id="abContainer">
+            <h2>about:blank launcher</h2>
+            <input id="urlInput" type="text" placeholder="Enter URL"/>
+            <button id="confirm"><i class="fa-solid fa-check"></i> Confirm</button>
+            <button id="changeUrl" style="display: none;"><i class="fa-solid fa-pen"></i> Change</button>
+            <button id="launch"><i class="fa-solid fa-rocket"></i> Launch</button>
+        </div>
+
+        <div id="cloakContainer">
+            <h2>Tab Cloaker</h2>
+            <input type="text" placeholder="Tab URL" id="xurl" />
+            <input type="text" placeholder="Tab Title (optional)" id="xinpt" />
+            <input type="text" placeholder="Tab Icon (optional)" id="xfavicon" />
+            <br> <button id="sbmt"><i class="fa-solid fa-rocket"></i> Launch</button>
+        </div>
         <br> <button id="removeHistory"><i class="fa-solid fa-trash"></i> Remove from history</button>
     </div>
 
-    <script>
-
+    <script> // about:blank
         document.getElementById("confirm").addEventListener("click", function() {
             const url = document.getElementById("urlInput").value;
 
@@ -132,4 +142,30 @@
         }
 
     </script>
+
+<script> // cloak
+
+    document.getElementById("sbmt").addEventListener("click", () => {
+
+        var title = document.getElementById("xinpt").value;
+        var favicon = document.getElementById("xfavicon").value;
+        var urll = document.getElementById("xurl").value;
+
+        if (!urll.startsWith("https://")) {
+            return alert("Unable to launch cloaked tab. Make sure the URL starts with 'https://'!")
+        }
+        
+        const iframe = document.createElement('iframe'); 
+        const stl = iframe.style; 
+        stl.border = stl.outline = 'none'; 
+        stl.width = '100vw'; 
+        stl.height = '100vh'; 
+        stl.position = 'fixed'; 
+        stl.left = stl.right = stl.top = stl.bottom = '0'; 
+        iframe.src = urll; 
+        document.body.appendChild(iframe); 
+        document.getElementById("xfavcon").href = favicon;
+        document.title = title;
+    })
+</script>
 </body>
