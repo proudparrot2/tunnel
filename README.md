@@ -1,3 +1,12 @@
-# tunnel
-A privacy tool that launches a url in an about:blank tab.
-still in development
+# Tunnel
+
+A student's best friend.
+
+### Utilities
+* Launching about:blank tabs
+* URL Cloaking
+* Games (coming soon)
+
+### How to use
+1. Download the file 
+2. Run it
